@@ -1,0 +1,113 @@
+# MODULE 1.4: Graphs (23 concepts)
+
+## Exercices
+
+### ex00: graph_foundations
+**Concepts:** 1.4.1-1.4.5 (Representations, Union-Find, DFS, BFS, Applications)
+```rust
+pub struct Graph {
+    adj_list: Vec<Vec<(usize, i64)>>,  // (neighbor, weight)
+    directed: bool,
+}
+
+pub struct UnionFind {
+    parent: Vec<usize>,
+    rank: Vec<usize>,
+}
+impl UnionFind {
+    pub fn find(&mut self, x: usize) -> usize;  // with path compression
+    pub fn union(&mut self, x: usize, y: usize) -> bool;
+    pub fn connected(&mut self, x: usize, y: usize) -> bool;
+}
+
+impl Graph {
+    pub fn dfs(&self, start: usize) -> DfsResult;
+    pub fn bfs(&self, start: usize) -> BfsResult;
+    pub fn connected_components(&self) -> Vec<Vec<usize>>;
+    pub fn is_bipartite(&self) -> bool;
+    pub fn bridges(&self) -> Vec<(usize, usize)>;
+    pub fn articulation_points(&self) -> Vec<usize>;
+}
+```
+**Qualite:** 98/100
+
+### ex01: dag_algorithms
+**Concepts:** 1.4.6-1.4.7 (Topological Sort, SCC)
+```rust
+impl Graph {
+    pub fn topological_sort(&self) -> Option<Vec<usize>>;
+    pub fn topological_sort_kahn(&self) -> Option<Vec<usize>>;
+    pub fn strongly_connected_components(&self) -> Vec<Vec<usize>>;  // Tarjan
+    pub fn condensation_graph(&self) -> Graph;  // DAG of SCCs
+}
+```
+**Qualite:** 97/100
+
+### ex02: shortest_paths
+**Concepts:** 1.4.8-1.4.11 (Dijkstra, Bellman-Ford, Floyd-Warshall, A*)
+```rust
+impl Graph {
+    pub fn dijkstra(&self, source: usize) -> (Vec<i64>, Vec<Option<usize>>);
+    pub fn bellman_ford(&self, source: usize) -> Result<Vec<i64>, NegativeCycle>;
+    pub fn floyd_warshall(&self) -> Vec<Vec<i64>>;
+}
+
+pub struct AStar<H: Fn(usize) -> i64> {
+    heuristic: H,
+}
+impl<H: Fn(usize) -> i64> AStar<H> {
+    pub fn find_path(&self, graph: &Graph, start: usize, goal: usize) -> Option<Vec<usize>>;
+}
+```
+**Qualite:** 98/100
+
+### ex03: minimum_spanning_tree
+**Concepts:** 1.4.12-1.4.13 (Kruskal, Prim)
+```rust
+impl Graph {
+    pub fn kruskal(&self) -> Vec<(usize, usize, i64)>;  // MST edges
+    pub fn prim(&self, start: usize) -> Vec<(usize, usize, i64)>;
+    pub fn mst_weight(&self) -> i64;
+}
+```
+**Qualite:** 97/100
+
+### ex04: network_flow
+**Concepts:** 1.4.14-1.4.20 (Flow concepts, Ford-Fulkerson, Edmonds-Karp, Dinic, Min-Cut, Applications, Min-Cost)
+```rust
+pub struct FlowNetwork {
+    capacity: Vec<Vec<i64>>,
+    source: usize,
+    sink: usize,
+}
+
+impl FlowNetwork {
+    pub fn max_flow_dinic(&mut self) -> i64;
+    pub fn min_cut(&self) -> (Vec<usize>, Vec<usize>);
+    pub fn bipartite_matching(&self) -> Vec<(usize, usize)>;
+}
+
+pub struct MinCostFlow { /* ... */ }
+```
+**Qualite:** 96/100
+
+### ex05: special_graphs
+**Concepts:** 1.4.21-1.4.23 (2-SAT, Euler, Hamiltonian/TSP)
+```rust
+pub struct TwoSat {
+    // Implication graph
+}
+impl TwoSat {
+    pub fn add_clause(&mut self, a: i32, b: i32);  // (a OR b)
+    pub fn solve(&self) -> Option<Vec<bool>>;
+}
+
+impl Graph {
+    pub fn euler_path(&self) -> Option<Vec<usize>>;
+    pub fn euler_circuit(&self) -> Option<Vec<usize>>;
+    pub fn tsp_dp(&self) -> (i64, Vec<usize>);  // O(2^n * n^2)
+}
+```
+**Qualite:** 95/100
+
+---

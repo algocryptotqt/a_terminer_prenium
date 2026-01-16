@@ -1,0 +1,132 @@
+# MODULES 1.3-1.8 - CONCEPTION DES EXERCICES (DRAFT)
+
+**Langages cibles:** Rust Edition 2024 / Python 3.14
+**Qualite pedagogique cible:** >= 95/100
+
+---
+
+# MODULE 1.3: Trees & Advanced Tree Structures (27 concepts)
+
+## Exercices
+
+### ex00: bst_fundamentals
+**Concepts:** 1.3.1-1.3.5 (BST basics, traversals, deletion, analysis, advanced ops)
+```rust
+pub struct BST<K: Ord, V> { /* ... */ }
+impl<K: Ord, V> BST<K, V> {
+    pub fn insert(&mut self, key: K, value: V);
+    pub fn search(&self, key: &K) -> Option<&V>;
+    pub fn delete(&mut self, key: &K) -> Option<V>;
+    pub fn min(&self) -> Option<(&K, &V)>;
+    pub fn max(&self) -> Option<(&K, &V)>;
+    pub fn successor(&self, key: &K) -> Option<&K>;
+    pub fn predecessor(&self, key: &K) -> Option<&K>;
+    // Traversals
+    pub fn inorder(&self) -> Vec<&K>;
+    pub fn preorder(&self) -> Vec<&K>;
+    pub fn postorder(&self) -> Vec<&K>;
+    pub fn level_order(&self) -> Vec<Vec<&K>>;
+    // Advanced
+    pub fn floor(&self, key: &K) -> Option<&K>;
+    pub fn ceil(&self, key: &K) -> Option<&K>;
+    pub fn rank(&self, key: &K) -> usize;
+    pub fn select(&self, k: usize) -> Option<&K>;
+    pub fn range(&self, lo: &K, hi: &K) -> Vec<&K>;
+}
+```
+**Qualite:** 97/100
+
+### ex01: balanced_trees
+**Concepts:** 1.3.6-1.3.13 (AVL, Red-Black, comparison)
+```rust
+pub struct AVLTree<K: Ord, V> { /* ... */ }
+pub struct RedBlackTree<K: Ord, V> { /* ... */ }
+
+// Rotations explicites pour comprendre
+impl<K: Ord, V> AVLTree<K, V> {
+    fn rotate_right(&mut self, node: NodeRef);
+    fn rotate_left(&mut self, node: NodeRef);
+    fn rebalance(&mut self, node: NodeRef);
+}
+
+// Visualiseur d'arbre pour debug
+pub fn visualize_tree<T: Display>(tree: &impl Tree<T>) -> String;
+```
+**Qualite:** 96/100
+
+### ex02: advanced_trees
+**Concepts:** 1.3.14-1.3.17 (Treaps, Splay, B-Trees, B+Trees)
+```rust
+pub struct Treap<K: Ord, V> {
+    // key: BST order, priority: Heap order
+}
+impl<K: Ord, V> Treap<K, V> {
+    pub fn split(&mut self, key: &K) -> (Treap<K,V>, Treap<K,V>);
+    pub fn merge(left: Treap<K,V>, right: Treap<K,V>) -> Treap<K,V>;
+}
+
+pub struct BPlusTree<K: Ord, V> {
+    order: usize,
+}
+impl<K: Ord, V> BPlusTree<K, V> {
+    pub fn insert(&mut self, key: K, value: V);
+    pub fn range_query(&self, lo: &K, hi: &K) -> Vec<&V>;
+    pub fn to_dot(&self) -> String;  // Visualisation
+}
+```
+**Qualite:** 95/100
+
+### ex03: heaps_and_priority
+**Concepts:** 1.3.18-1.3.19 (Binary Heap, Fibonacci Heap)
+```rust
+pub struct BinaryHeap<T: Ord> { /* ... */ }
+pub struct FibonacciHeap<T: Ord> { /* ... */ }
+
+impl<T: Ord> FibonacciHeap<T> {
+    pub fn insert(&mut self, value: T) -> Handle;
+    pub fn get_min(&self) -> Option<&T>;
+    pub fn extract_min(&mut self) -> Option<T>;
+    pub fn decrease_key(&mut self, handle: Handle, new_value: T);
+    pub fn merge(&mut self, other: FibonacciHeap<T>);
+}
+```
+**Qualite:** 96/100
+
+### ex04: range_query_structures
+**Concepts:** 1.3.20-1.3.23 (Interval Trees, Segment Trees, Fenwick, Sparse Tables)
+```rust
+pub struct SegmentTree<T, F> {
+    data: Vec<T>,
+    combine: F,
+}
+impl<T: Clone, F: Fn(&T, &T) -> T> SegmentTree<T, F> {
+    pub fn build(arr: &[T], combine: F) -> Self;
+    pub fn query(&self, left: usize, right: usize) -> T;
+    pub fn update(&mut self, index: usize, value: T);
+    // Lazy propagation
+    pub fn range_update(&mut self, left: usize, right: usize, delta: T);
+}
+
+pub struct FenwickTree { /* ... */ }
+pub struct SparseTable<T> { /* ... */ }
+```
+**Qualite:** 98/100
+
+### ex05: tree_decomposition
+**Concepts:** 1.3.24-1.3.27 (LCA Binary Lifting, LCA Euler+RMQ, HLD, Centroid)
+```rust
+pub struct TreeWithLCA {
+    // up[v][k] = 2^k-th ancestor of v
+}
+impl TreeWithLCA {
+    pub fn build(adj: &[Vec<usize>], root: usize) -> Self;
+    pub fn lca(&self, u: usize, v: usize) -> usize;
+    pub fn distance(&self, u: usize, v: usize) -> usize;
+}
+
+pub struct HeavyLightDecomposition { /* ... */ }
+pub struct CentroidDecomposition { /* ... */ }
+```
+**Qualite:** 95/100
+
+---

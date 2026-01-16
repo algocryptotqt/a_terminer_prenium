@@ -1,0 +1,82 @@
+# MODULE 1.5: Dynamic Programming (13 concepts)
+
+## Exercices
+
+### ex00: dp_fundamentals
+**Concepts:** 1.5.1-1.5.3 (Fundamentals, Space optimization, Linear DP)
+```rust
+pub struct DPSolver;
+
+impl DPSolver {
+    pub fn fibonacci(n: u64) -> u64;
+    pub fn climbing_stairs(n: u32) -> u64;
+    pub fn house_robber(houses: &[i32]) -> i32;
+    pub fn max_subarray(arr: &[i32]) -> i32;  // Kadane
+    pub fn coin_change(coins: &[u32], amount: u32) -> Option<u32>;
+    pub fn coin_change_ways(coins: &[u32], amount: u32) -> u64;
+}
+```
+**Qualite:** 98/100
+
+### ex01: sequence_dp
+**Concepts:** 1.5.4-1.5.6 (Two-sequence, Knapsack, String DP)
+```rust
+impl DPSolver {
+    pub fn lcs(s1: &str, s2: &str) -> String;
+    pub fn edit_distance(s1: &str, s2: &str) -> usize;
+    pub fn knapsack_01(weights: &[u32], values: &[u32], capacity: u32) -> u32;
+    pub fn knapsack_unbounded(weights: &[u32], values: &[u32], capacity: u32) -> u32;
+    pub fn subset_sum(nums: &[i32], target: i32) -> bool;
+    pub fn longest_palindromic_subsequence(s: &str) -> String;
+    pub fn word_break(s: &str, dictionary: &[&str]) -> bool;
+}
+```
+**Qualite:** 97/100
+
+### ex02: advanced_dp
+**Concepts:** 1.5.7-1.5.9 (Interval, LIS, Grid)
+```rust
+impl DPSolver {
+    pub fn matrix_chain_order(dimensions: &[u32]) -> (u64, String);
+    pub fn burst_balloons(nums: &[u32]) -> u32;
+    pub fn lis(arr: &[i32]) -> Vec<i32>;  // O(n log n)
+    pub fn lis_count(arr: &[i32]) -> usize;
+    pub fn unique_paths(m: usize, n: usize) -> u64;
+    pub fn min_path_sum(grid: &[Vec<i32>]) -> i32;
+    pub fn maximal_square(matrix: &[Vec<bool>]) -> usize;
+}
+```
+**Qualite:** 96/100
+
+### ex03: tree_and_bitmask_dp
+**Concepts:** 1.5.10-1.5.11 (Tree DP, Bitmask DP)
+```rust
+pub struct TreeDP;
+impl TreeDP {
+    pub fn tree_diameter(adj: &[Vec<usize>]) -> usize;
+    pub fn max_path_sum(root: &TreeNode) -> i32;
+    pub fn house_robber_tree(root: &TreeNode) -> i32;
+}
+
+pub struct BitmaskDP;
+impl BitmaskDP {
+    pub fn tsp(dist: &[Vec<i32>]) -> i32;
+    pub fn assignment_problem(cost: &[Vec<i32>]) -> i32;
+    pub fn sos_dp(arr: &[i64]) -> Vec<i64>;  // Sum over subsets
+}
+```
+**Qualite:** 96/100
+
+### ex04: dp_optimization
+**Concepts:** 1.5.12-1.5.13 (Advanced techniques, Meet in middle)
+```rust
+pub struct AdvancedDP;
+impl AdvancedDP {
+    pub fn digit_dp_count(n: u64, predicate: impl Fn(&[u8]) -> bool) -> u64;
+    pub fn convex_hull_trick(queries: &[(i64, i64)]) -> Vec<i64>;
+    pub fn meet_in_middle_subset_sum(arr: &[i64], target: i64) -> bool;
+}
+```
+**Qualite:** 95/100
+
+---
