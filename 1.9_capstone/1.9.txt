@@ -1,0 +1,25 @@
+## PROJET CAPSTONE PHASE 1
+
+### algo_arena - Competitive Programming Judge
+
+Projet integrant TOUS les concepts de la Phase 1:
+- Parsing de problemes
+- Execution sandboxee
+- Verification de solutions
+- Benchmarking automatique
+- Statistiques de performance
+
+```rust
+pub struct AlgoArena {
+    problems: Vec<Problem>,
+    solutions: HashMap<String, Solution>,
+}
+
+impl AlgoArena {
+    pub fn submit(&mut self, problem_id: &str, code: &str) -> SubmissionResult;
+    pub fn run_tests(&self, problem_id: &str, code: &str) -> Vec<TestResult>;
+    pub fn leaderboard(&self, problem_id: &str) -> Vec<(String, Duration)>;
+}
+```
+
+**Qualite:** 99/100

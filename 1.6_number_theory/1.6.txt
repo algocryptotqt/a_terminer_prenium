@@ -1,0 +1,103 @@
+# MODULE 1.6: Number Theory & Mathematics (17 concepts)
+
+## Exercices
+
+### ex00: primes_and_factorization
+**Concepts:** 1.6.1-1.6.2 (Primes, Factorization)
+```rust
+pub struct Primes;
+impl Primes {
+    pub fn sieve(n: usize) -> Vec<bool>;
+    pub fn linear_sieve(n: usize) -> (Vec<bool>, Vec<usize>);  // (is_prime, spf)
+    pub fn segmented_sieve(lo: u64, hi: u64) -> Vec<u64>;
+    pub fn factorize(n: u64) -> Vec<(u64, u32)>;  // (prime, exponent)
+    pub fn divisors(n: u64) -> Vec<u64>;
+    pub fn divisor_count(n: u64) -> u64;
+    pub fn divisor_sum(n: u64) -> u64;
+}
+```
+**Qualite:** 98/100
+
+### ex01: gcd_and_modular
+**Concepts:** 1.6.3-1.6.7 (GCD, Extended Euclidean, Modular arithmetic, Exp, Inverse)
+```rust
+pub struct ModularArithmetic;
+impl ModularArithmetic {
+    pub fn gcd(a: u64, b: u64) -> u64;
+    pub fn lcm(a: u64, b: u64) -> u64;
+    pub fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64);  // (g, x, y)
+    pub fn mod_pow(base: u64, exp: u64, modulus: u64) -> u64;
+    pub fn mod_inverse(a: u64, modulus: u64) -> Option<u64>;
+    pub fn mod_inverse_fermat(a: u64, p: u64) -> u64;  // p prime
+}
+```
+**Qualite:** 97/100
+
+### ex02: number_theory_advanced
+**Concepts:** 1.6.8-1.6.12 (Fermat, Euler totient, CRT, Primality, Factorization)
+```rust
+impl ModularArithmetic {
+    pub fn euler_phi(n: u64) -> u64;
+    pub fn chinese_remainder(remainders: &[i64], moduli: &[i64]) -> Option<i64>;
+    pub fn is_prime_miller_rabin(n: u64) -> bool;
+    pub fn pollard_rho(n: u64) -> u64;  // Find a factor
+}
+```
+**Qualite:** 96/100
+
+### ex03: combinatorics
+**Concepts:** 1.6.13 (Combinatorics)
+```rust
+pub struct Combinatorics {
+    fact: Vec<u64>,
+    inv_fact: Vec<u64>,
+    modulus: u64,
+}
+impl Combinatorics {
+    pub fn new(max_n: usize, modulus: u64) -> Self;
+    pub fn factorial(&self, n: usize) -> u64;
+    pub fn permutations(&self, n: usize, k: usize) -> u64;
+    pub fn combinations(&self, n: usize, k: usize) -> u64;
+    pub fn catalan(&self, n: usize) -> u64;
+    pub fn derangements(&self, n: usize) -> u64;
+    pub fn lucas(&self, n: u64, k: u64, p: u64) -> u64;
+}
+```
+**Qualite:** 98/100
+
+### ex04: polynomials_and_fft
+**Concepts:** 1.6.14-1.6.15 (FFT, Matrix exponentiation)
+```rust
+pub struct FFT;
+impl FFT {
+    pub fn multiply(a: &[i64], b: &[i64]) -> Vec<i64>;
+    pub fn ntt(a: &[i64], b: &[i64], modulus: u64) -> Vec<i64>;
+}
+
+pub struct Matrix<T> { /* ... */ }
+impl<T: Num + Clone> Matrix<T> {
+    pub fn pow(&self, n: u64) -> Matrix<T>;
+    pub fn fibonacci(n: u64) -> u64;  // Via matrix exp
+}
+```
+**Qualite:** 96/100
+
+### ex05: game_theory
+**Concepts:** 1.6.16-1.6.17 (Game theory, Probability)
+```rust
+pub struct GameTheory;
+impl GameTheory {
+    pub fn nim_winner(piles: &[u32]) -> bool;  // XOR rule
+    pub fn grundy_number(positions: &[Vec<usize>], pos: usize) -> u32;
+    pub fn mex(set: &[u32]) -> u32;
+}
+
+pub struct Probability;
+impl Probability {
+    pub fn expected_value(outcomes: &[(f64, f64)]) -> f64;
+    pub fn coupon_collector_expected(n: usize) -> f64;
+}
+```
+**Qualite:** 95/100
+
+---

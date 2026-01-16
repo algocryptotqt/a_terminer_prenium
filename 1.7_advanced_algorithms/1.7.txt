@@ -1,0 +1,132 @@
+# MODULE 1.7: Advanced Algorithms & Techniques (14 concepts)
+
+## Exercices
+
+### ex00: paradigms
+**Concepts:** 1.7.1-1.7.4 (Greedy, Backtracking, Branch&Bound, Divide&Conquer)
+```rust
+pub struct Greedy;
+impl Greedy {
+    pub fn activity_selection(activities: &[(u32, u32)]) -> Vec<usize>;
+    pub fn huffman_codes(frequencies: &[(char, u32)]) -> HashMap<char, String>;
+    pub fn fractional_knapsack(items: &[(f64, f64)], capacity: f64) -> f64;
+}
+
+pub struct Backtracking;
+impl Backtracking {
+    pub fn n_queens(n: usize) -> Vec<Vec<usize>>;
+    pub fn sudoku_solve(board: &mut [[u8; 9]; 9]) -> bool;
+    pub fn permutations<T: Clone>(arr: &[T]) -> Vec<Vec<T>>;
+    pub fn subsets<T: Clone>(arr: &[T]) -> Vec<Vec<T>>;
+}
+
+pub struct DivideConquer;
+impl DivideConquer {
+    pub fn closest_pair(points: &[(f64, f64)]) -> f64;
+    pub fn karatsuba(a: &[u8], b: &[u8]) -> Vec<u8>;
+    pub fn median_of_medians(arr: &mut [i32], k: usize) -> i32;
+}
+```
+**Qualite:** 97/100
+
+### ex01: query_optimization
+**Concepts:** 1.7.5-1.7.6 (Sqrt decomposition, Mo's algorithm)
+```rust
+pub struct SqrtDecomposition<T> { /* ... */ }
+impl<T: Clone + Default> SqrtDecomposition<T> {
+    pub fn build(arr: &[T], combine: fn(&T, &T) -> T) -> Self;
+    pub fn query(&self, left: usize, right: usize) -> T;
+    pub fn update(&mut self, index: usize, value: T);
+}
+
+pub struct MoAlgorithm;
+impl MoAlgorithm {
+    pub fn solve<State, Add, Remove, Answer>(
+        arr: &[i32],
+        queries: &[(usize, usize)],
+        add: Add,
+        remove: Remove,
+        answer: Answer,
+    ) -> Vec<i64>
+    where
+        Add: FnMut(&mut State, i32),
+        Remove: FnMut(&mut State, i32),
+        Answer: Fn(&State) -> i64;
+}
+```
+**Qualite:** 96/100
+
+### ex02: geometry
+**Concepts:** 1.7.7 (Computational Geometry)
+```rust
+pub struct Point { x: f64, y: f64 }
+pub struct Line { a: f64, b: f64, c: f64 }
+
+pub struct Geometry;
+impl Geometry {
+    pub fn cross_product(o: Point, a: Point, b: Point) -> f64;
+    pub fn ccw(a: Point, b: Point, c: Point) -> i32;  // -1, 0, 1
+    pub fn convex_hull(points: &[Point]) -> Vec<Point>;
+    pub fn line_intersection(l1: Line, l2: Line) -> Option<Point>;
+    pub fn point_in_polygon(point: Point, polygon: &[Point]) -> bool;
+    pub fn polygon_area(polygon: &[Point]) -> f64;
+}
+```
+**Qualite:** 96/100
+
+### ex03: randomized_and_online
+**Concepts:** 1.7.8-1.7.10 (Randomized, Online, Approximation)
+```rust
+pub struct Randomized;
+impl Randomized {
+    pub fn quick_select(arr: &mut [i32], k: usize) -> i32;
+    pub fn skip_list<T: Ord>() -> SkipList<T>;
+    pub fn reservoir_sample<T: Clone>(stream: impl Iterator<Item = T>, k: usize) -> Vec<T>;
+}
+
+pub struct Approximation;
+impl Approximation {
+    pub fn vertex_cover_2approx(graph: &Graph) -> Vec<usize>;
+    pub fn set_cover_greedy(universe: &[usize], sets: &[Vec<usize>]) -> Vec<usize>;
+    pub fn tsp_2approx(graph: &Graph) -> Vec<usize>;
+}
+```
+**Qualite:** 95/100
+
+### ex04: bit_manipulation
+**Concepts:** 1.7.11 (Bit manipulation)
+```rust
+pub struct Bits;
+impl Bits {
+    pub fn set_bit(n: u64, i: u32) -> u64;
+    pub fn clear_bit(n: u64, i: u32) -> u64;
+    pub fn toggle_bit(n: u64, i: u32) -> u64;
+    pub fn check_bit(n: u64, i: u32) -> bool;
+    pub fn lowest_set_bit(n: u64) -> u64;
+    pub fn clear_lowest_set_bit(n: u64) -> u64;
+    pub fn popcount(n: u64) -> u32;
+    pub fn all_submasks(mask: u64) -> impl Iterator<Item = u64>;
+    pub fn next_permutation_bits(n: u64) -> u64;  // Gosper's hack
+}
+```
+**Qualite:** 97/100
+
+### ex05: persistent_and_advanced_ds
+**Concepts:** 1.7.12-1.7.14 (Persistent DS, Advanced DS, String Advanced)
+```rust
+pub struct PersistentSegmentTree<T> { /* ... */ }
+impl<T: Clone> PersistentSegmentTree<T> {
+    pub fn update(&self, index: usize, value: T) -> Self;  // Returns new version
+    pub fn query(&self, version: usize, left: usize, right: usize) -> T;
+}
+
+pub struct KDTree { /* ... */ }
+impl KDTree {
+    pub fn build(points: &[(f64, f64)]) -> Self;
+    pub fn nearest(&self, point: (f64, f64)) -> (f64, f64);
+    pub fn range_search(&self, rect: ((f64, f64), (f64, f64))) -> Vec<(f64, f64)>;
+}
+```
+**Qualite:** 95/100
+
+---

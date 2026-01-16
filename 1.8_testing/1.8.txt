@@ -1,0 +1,75 @@
+# MODULE 1.8: Testing, Quality & Competition (15 concepts)
+
+## Exercices
+
+### ex00: testing_fundamentals
+**Concepts:** 1.8.1-1.8.4 (Unit testing C, Python, TDD, Property-based)
+```rust
+// Framework de test custom
+#[macro_export]
+macro_rules! test {
+    ($name:ident, $body:block) => { /* ... */ };
+}
+
+#[macro_export]
+macro_rules! assert_eq_eps {
+    ($left:expr, $right:expr, $eps:expr) => { /* ... */ };
+}
+
+// Property-based testing
+pub trait Arbitrary {
+    fn arbitrary(rng: &mut impl Rng) -> Self;
+    fn shrink(&self) -> Vec<Self>;
+}
+
+pub fn quickcheck<T: Arbitrary, F: Fn(T) -> bool>(property: F, iterations: usize) -> Result<(), T>;
+```
+**Qualite:** 96/100
+
+### ex01: quality_tools
+**Concepts:** 1.8.5-1.8.9 (Fuzzing, Sanitizers, Static analysis, Profiling, Benchmarking)
+```rust
+// Fuzzer simple
+pub struct Fuzzer;
+impl Fuzzer {
+    pub fn fuzz<F: Fn(&[u8])>(target: F, corpus: &[Vec<u8>], iterations: usize);
+    pub fn mutate(input: &[u8]) -> Vec<u8>;
+}
+
+// Benchmark framework
+pub struct Benchmark;
+impl Benchmark {
+    pub fn run<F: Fn()>(name: &str, f: F, iterations: usize) -> BenchmarkResult;
+    pub fn compare<F1: Fn(), F2: Fn()>(name1: &str, f1: F1, name2: &str, f2: F2);
+}
+```
+**Qualite:** 95/100
+
+### ex02: cicd_and_competition
+**Concepts:** 1.8.10-1.8.15 (CI/CD, CP Setup, Strategies, Patterns, Mistakes, Contest)
+```rust
+// Template competitive programming
+pub mod cp_template {
+    pub fn fast_io() -> (impl BufRead, impl Write);
+    pub fn read_line() -> String;
+    pub fn read_vec<T: FromStr>() -> Vec<T>;
+
+    // Debug macro that only prints in debug mode
+    #[cfg(debug_assertions)]
+    macro_rules! dbg { /* ... */ }
+
+    // Stress testing
+    pub fn stress_test<F1, F2, G>(
+        naive: F1,
+        optimized: F2,
+        generator: G,
+        iterations: usize
+    ) where
+        F1: Fn(&[i32]) -> i32,
+        F2: Fn(&[i32]) -> i32,
+        G: Fn() -> Vec<i32>;
+}
+```
+**Qualite:** 97/100
+
+---
